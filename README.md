@@ -17,7 +17,7 @@ This tutorial explains how to run **AceStream Engine** in a Docker container for
 
 ## 2. Install AceStream in Docker
 
-> 💬 **Comment:** We will use the Docker image `futebas/acestream-engine-arm:3.2.7.6`, which is compatible with ARMv7 devices.
+> 💬 **Comment:** We will use the Docker image `jopsis/acestream:arm32`, which is compatible with ARMv7 devices.
 
 ### Step-by-step instructions:
 
@@ -35,21 +35,12 @@ ssh root@<IP-of-your-LibreELEC>
 3. Run the AceStream container:
 
 ```bash
-docker run -d --name acestream \
+docker run -d \
+  --name acestream-engine \
+  --net=host \
   --restart unless-stopped \
-  -p 6878:6878 \
-  -v /storage/acestream:/opt/acestream \
-  futebas/acestream-engine-arm:3.2.7.6
+  jopsis/acestream:arm32
 ```
-
-**Parameters explained:**
-
-* `-d` → run in the background
-* `--name acestream` → container name
-* `--restart unless-stopped` → automatically restart on LibreELEC boot
-* `-p 6878:6878` → external port 6878 mapped to the engine’s internal port
-* `-v /storage/acestream:/opt/acestream` → persistent data (settings, cache)
-* Image: `futebas/acestream-engine-arm:3.2.7.6`
 
 > 💬 **Comment:** Docker will download the image if not present and start the container.
 
@@ -105,7 +96,7 @@ docker logs -f acestream
 
 ## Credits
 
-* Docker image: [futebas/acestream-engine-arm](https://hub.docker.com/r/futebas/acestream-engine-arm)
+* Docker image: [jopsis/acestream](https://hub.docker.com/r/jopsis/acestream)
 * LibreELEC: [https://libreelec.tv](https://libreelec.tv)
 * Horus addon: community-maintained Kodi addon
 
